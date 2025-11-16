@@ -8,26 +8,23 @@ artifacts/
 *.mdb
 *.pdb
 
-## .NET-specific
+## .NET / NuGet
 project.lock.json
 project.fragment.lock.json
-artifacts/
 *.nuget.props
 *.nuget.targets
-
-# Auto-generated files
-generated/
-*.g.cs
-*.g.i.cs
-*.assemblyattributes.cs
-
-## Dependencies
 packages/
 *.nupkg
 *.snupkg
 *.nuspec
 
-## User secrets
+## Auto-generated files
+generated/
+*.g.cs
+*.g.i.cs
+*.assemblyattributes.cs
+
+## User secrets / local config
 **/appsettings.Local.json
 **/appsettings.Development.json
 *.user
@@ -42,38 +39,16 @@ packages/
 *.log
 *.tlog
 *.svclog
-*.vscode/.history
 
-## Cache
+## IDE / tooling cache
 .vs/
-.vscode/
 .vsconfig
-.vscode/settings.json
-ncrunch*.*
-
-_ReSharper*/
-*.DotSettings.user
-JetBrains.ReSharper.*
-*.cache
-*.db
-
-## IDEs
-.idea/
-*.swp
-*.swo
-
-## Rider
-.idea/
-*.sln.iml
 
 ## Visual Studio Code
 .vscode/*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-# Sonar
-.sonar/
 
 ## Docker
 docker-compose.override.yml
@@ -83,4 +58,4 @@ docker-compose.override.yml
 
 ## OS-generated files
 .DS_Store
-Th
+Thumbs.db
