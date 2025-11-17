@@ -199,7 +199,8 @@ dotnet run --project src/api/Lwrp.Api/Lwrp.Api.csproj
 
 Visit: https://localhost:5001/swagger (or the port shown in the console).
 
-# Stopping here for first push (Need to research interface more first)
+# Stopping here for first push (Need to research interface more first) Also dont want to build anything for the first pish as not git ignore is ready.
+
 5. Create the UI project (manual interaction)
 Let’s use Blazor Server hosted separately from the API.
 mkdir -p src/ui

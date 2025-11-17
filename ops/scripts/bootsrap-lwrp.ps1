@@ -1,5 +1,6 @@
 param(
     [string]$SolutionName = "LwrpPoC",
+    [string]$dotNetFramework = "net8.0"
 )
 
 $ErrorActionPreference = "Stop"
@@ -25,8 +26,8 @@ Write-Host "Creating core projects..."
 New-Item -ItemType Directory -Path "src/core" -Force | Out-Null
 Set-Location "src/core"
 
-dotnet new classlib -n Lwrp.Domain
-dotnet new classlib -n Lwrp.Application
+dotnet new classlib -n Lwrp.Domain --framework $DotNetFramework
+dotnet new classlib -n Lwrp.Application --framework $DotNetFramework
 
 Write-Host "Linking Application -> Domain..."
 dotnet add "Lwrp.Application/Lwrp.Application.csproj" reference "Lwrp.Domain/Lwrp.Domain.csproj"
@@ -42,8 +43,8 @@ Write-Host "Creating infrastructure projects..."
 New-Item -ItemType Directory -Path "src/infrastructure" -Force | Out-Null
 Set-Location "src/infrastructure"
 
-dotnet new classlib -n Lwrp.LivewireClient 
-dotnet new classlib -n Lwrp.Persistence
+dotnet new classlib -n Lwrp.LivewireClient --framework $DotNetFramework
+dotnet new classlib -n Lwrp.Persistence --framework $DotNetFramework
 
 Write-Host "Linking infrastructure -> core..."
 dotnet add "Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" reference `
@@ -64,7 +65,7 @@ dotnet sln "$SolutionName.sln" add `
 Write-Host "Creating API project..."
 New-Item -ItemType Directory -Path "src/api" -Force | Out-Null
 Set-Location "src/api"
-dotnet new webapi -n Lwrp.Api
+dotnet new webapi -n Lwrp.Api --framework $DotNetFramework
 Set-Location ../..
 
 dotnet sln "$SolutionName.sln" add "src/api/Lwrp.Api/Lwrp.Api.csproj"
@@ -80,7 +81,7 @@ dotnet add "src/api/Lwrp.Api/Lwrp.Api.csproj" reference `
 Write-Host "Creating UI project..."
 New-Item -ItemType Directory -Path "src/ui" -Force | Out-Null
 Set-Location "src/ui"
-dotnet new blazorserver -n Lwrp.WebUi
+dotnet new blazor -n Lwrp.WebUi --interactivity Server --framework $DotNetFramework
 Set-Location ../..
 
 dotnet sln "$SolutionName.sln" add "src/ui/Lwrp.WebUi/Lwrp.WebUi.csproj"
@@ -88,7 +89,7 @@ dotnet sln "$SolutionName.sln" add "src/ui/Lwrp.WebUi/Lwrp.WebUi.csproj"
 Write-Host "Creating shared contracts project..."
 New-Item -ItemType Directory -Path "src/shared" -Force | Out-Null
 Set-Location "src/shared"
-dotnet new classlib -n Lwrp.Contracts
+dotnet new classlib -n Lwrp.Contracts --framework $DotNetFramework
 Set-Location ../..
 
 dotnet sln "$SolutionName.sln" add "src/shared/Lwrp.Contracts/Lwrp.Contracts.csproj"
@@ -102,8 +103,8 @@ Write-Host "Creating unit test projects..."
 New-Item -ItemType Directory -Path "tests/unit" -Force | Out-Null
 Set-Location "tests/unit"
 
-dotnet new xunit -n Lwrp.Domain.UnitTests
-dotnet new xunit -n Lwrp.Application.UnitTests
+dotnet new xunit -n Lwrp.Domain.UnitTests --framework $DotNetFramework
+dotnet new xunit -n Lwrp.Application.UnitTests --framework $DotNetFramework
 
 dotnet add "Lwrp.Domain.UnitTests/Lwrp.Domain.UnitTests.csproj" reference `
   "../../src/core/Lwrp.Domain/Lwrp.Domain.csproj"
@@ -121,8 +122,8 @@ Write-Host "Creating integration test projects..."
 New-Item -ItemType Directory -Path "tests/integration" -Force | Out-Null
 Set-Location "tests/integration"
 
-dotnet new xunit -n Lwrp.Api.IntegrationTests
-dotnet new xunit -n Lwrp.Infrastructure.IntegrationTests
+dotnet new xunit -n Lwrp.Api.IntegrationTests --framework $DotNetFramework
+dotnet new xunit -n Lwrp.Infrastructure.IntegrationTests --framework $DotNetFramework
 
 dotnet add "Lwrp.Api.IntegrationTests/Lwrp.Api.IntegrationTests.csproj" reference `
   "../../src/api/Lwrp.Api/Lwrp.Api.csproj"
@@ -141,8 +142,8 @@ Write-Host "Creating component/E2E test projects..."
 New-Item -ItemType Directory -Path "tests/component" -Force | Out-Null
 Set-Location "tests/component"
 
-dotnet new xunit -n Lwrp.ComponentTests.ApiToLwrp
-dotnet new xunit -n Lwrp.ComponentTests.UiToApi
+dotnet new xunit -n Lwrp.ComponentTests.ApiToLwrp --framework $DotNetFramework
+dotnet new xunit -n Lwrp.ComponentTests.UiToApi --framework $DotNetFramework
 
 dotnet add "Lwrp.ComponentTests.ApiToLwrp/Lwrp.ComponentTests.ApiToLwrp.csproj" reference `
   "../../src/api/Lwrp.Api/Lwrp.Api.csproj" `

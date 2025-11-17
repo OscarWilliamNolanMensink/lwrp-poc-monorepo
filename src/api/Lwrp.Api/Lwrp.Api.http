@@ -1,0 +1,6 @@
+@Lwrp.Api_HostAddress = http://localhost:5150
+
+GET {{Lwrp.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
