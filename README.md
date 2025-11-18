@@ -18,6 +18,7 @@ dotnet add Lwrp.Persistence/Lwrp.Persistence.csproj reference \
   ../core/Lwrp.Application/Lwrp.Application.csproj
 Before I link it with another project I need to know what it is supposed to do.
 - Research more on interface, I want to build a widget with React if possible to add to the project
+- Fix Tree genorator to not include items in gitignore
 
 # Thoughts
 ## Pure React UI

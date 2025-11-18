@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\infrastructure\Lwrp.LivewireClient\Lwrp.LivewireClient.csproj" />
+    <ProjectReference Include="..\..\..\src\infrastructure\Lwrp.MockDevice\Lwrp.MockDevice.csproj" />
     <ProjectReference Include="..\..\..\src\infrastructure\Lwrp.Persistence\Lwrp.Persistence.csproj" />
   </ItemGroup>
 

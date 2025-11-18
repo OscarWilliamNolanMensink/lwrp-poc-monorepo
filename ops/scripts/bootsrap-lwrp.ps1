@@ -43,11 +43,11 @@ Write-Host "Creating infrastructure projects..."
 New-Item -ItemType Directory -Path "src/infrastructure" -Force | Out-Null
 Set-Location "src/infrastructure"
 
-dotnet new classlib -n Lwrp.LivewireClient --framework $DotNetFramework
+otnet new console -n Lwrp.MockDevice --framework $DotNetFramework
 dotnet new classlib -n Lwrp.Persistence --framework $DotNetFramework
 
 Write-Host "Linking infrastructure -> core..."
-dotnet add "Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" reference `
+dotnet add "src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj" reference `
   "../core/Lwrp.Domain/Lwrp.Domain.csproj" `
   "../core/Lwrp.Application/Lwrp.Application.csproj"
 
@@ -58,7 +58,7 @@ dotnet add "Lwrp.Persistence/Lwrp.Persistence.csproj" reference `
 Set-Location ../..
 
 dotnet sln "$SolutionName.sln" add `
-  "src/infrastructure/Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" `
+  "src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj" `
   "src/infrastructure/Lwrp.Persistence/Lwrp.Persistence.csproj"
 
 # API
@@ -74,7 +74,7 @@ Write-Host "Linking API -> core + infrastructure..."
 dotnet add "src/api/Lwrp.Api/Lwrp.Api.csproj" reference `
   "src/core/Lwrp.Domain/Lwrp.Domain.csproj" `
   "src/core/Lwrp.Application/Lwrp.Application.csproj" `
-  "src/infrastructure/Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" `
+  "src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj" `
   "src/infrastructure/Lwrp.Persistence/Lwrp.Persistence.csproj"
 
 # UI + shared
@@ -129,7 +129,7 @@ dotnet add "Lwrp.Api.IntegrationTests/Lwrp.Api.IntegrationTests.csproj" referenc
   "../../src/api/Lwrp.Api/Lwrp.Api.csproj"
 
 dotnet add "Lwrp.Infrastructure.IntegrationTests/Lwrp.Infrastructure.IntegrationTests.csproj" reference `
-  "../../src/infrastructure/Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" `
+  "../../src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj" `
   "../../src/infrastructure/Lwrp.Persistence/Lwrp.Persistence.csproj"
 
 Set-Location ../..
@@ -147,7 +147,7 @@ dotnet new xunit -n Lwrp.ComponentTests.UiToApi --framework $DotNetFramework
 
 dotnet add "Lwrp.ComponentTests.ApiToLwrp/Lwrp.ComponentTests.ApiToLwrp.csproj" reference `
   "../../src/api/Lwrp.Api/Lwrp.Api.csproj" `
-  "../../src/infrastructure/Lwrp.LivewireClient/Lwrp.LivewireClient.csproj"
+  "../../src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj"
 
 dotnet add "Lwrp.ComponentTests.UiToApi/Lwrp.ComponentTests.UiToApi.csproj" reference `
   "../../src/ui/Lwrp.WebUi/Lwrp.WebUi.csproj"
@@ -206,6 +206,12 @@ services:
       dockerfile: ops/docker/ui.Dockerfile
     ports:
       - "5001:8080"
+  mock-lwrp-device:
+    build:
+      context: ../../src/infrastructure/Lwrp.MockDevice
+      dockerfile: Dockerfile
+    ports:
+      - "10093:93"
 '@ | Set-Content "ops/docker/docker-compose.yml"
 
 Write-Host "Running dotnet build + test..."

@@ -11,3 +11,8 @@ services:
       dockerfile: ops/docker/ui.Dockerfile
     ports:
       - "5001:8080"
+  mock-lwrp-device:
+    build:
+      context: ../../src/infrastructure/Lwrp.MockDevice
+    ports:
+      - "10093:93"
