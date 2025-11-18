@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lwrp.Domain\Lwrp.Domain.csproj" />
+    <ProjectReference Include="..\..\shared\Lwrp.Contracts\Lwrp.Contracts.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

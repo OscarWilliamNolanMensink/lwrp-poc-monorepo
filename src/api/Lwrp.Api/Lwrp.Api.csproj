@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\core\Lwrp.Application\Lwrp.Application.csproj" />
     <ProjectReference Include="..\..\infrastructure\Lwrp.Persistence\Lwrp.Persistence.csproj" />
     <ProjectReference Include="..\..\shared\Lwrp.Contracts\Lwrp.Contracts.csproj" />
+    <ProjectReference Include="..\..\infrastructure\Lwrp.LivewireClient\Lwrp.LivewireClient.csproj" />
   </ItemGroup>
 
 </Project>

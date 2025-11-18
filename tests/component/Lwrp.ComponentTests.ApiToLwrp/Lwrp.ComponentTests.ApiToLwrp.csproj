@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\api\Lwrp.Api\Lwrp.Api.csproj" />
     <ProjectReference Include="..\..\..\src\infrastructure\Lwrp.MockDevice\Lwrp.MockDevice.csproj" />
+    <ProjectReference Include="..\..\..\src\infrastructure\Lwrp.LivewireClient\Lwrp.LivewireClient.csproj" />
   </ItemGroup>
 
 </Project>
