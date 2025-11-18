@@ -44,10 +44,13 @@ New-Item -ItemType Directory -Path "src/infrastructure" -Force | Out-Null
 Set-Location "src/infrastructure"
 
 otnet new console -n Lwrp.MockDevice --framework $DotNetFramework
+dotnet new classlib -n Lwrp.LivewireClient --framework $DotNetFramework
 dotnet new classlib -n Lwrp.Persistence --framework $DotNetFramework
 
 Write-Host "Linking infrastructure -> core..."
 dotnet add "src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj" reference `
+
+dotnet add "Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" reference `
   "../core/Lwrp.Domain/Lwrp.Domain.csproj" `
   "../core/Lwrp.Application/Lwrp.Application.csproj"
 
@@ -59,6 +62,7 @@ Set-Location ../..
 
 dotnet sln "$SolutionName.sln" add `
   "src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj" `
+  "src/infrastructure/Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" `
   "src/infrastructure/Lwrp.Persistence/Lwrp.Persistence.csproj"
 
 # API
@@ -75,6 +79,7 @@ dotnet add "src/api/Lwrp.Api/Lwrp.Api.csproj" reference `
   "src/core/Lwrp.Domain/Lwrp.Domain.csproj" `
   "src/core/Lwrp.Application/Lwrp.Application.csproj" `
   "src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj" `
+  "src/infrastructure/Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" `
   "src/infrastructure/Lwrp.Persistence/Lwrp.Persistence.csproj"
 
 # UI + shared
@@ -130,6 +135,7 @@ dotnet add "Lwrp.Api.IntegrationTests/Lwrp.Api.IntegrationTests.csproj" referenc
 
 dotnet add "Lwrp.Infrastructure.IntegrationTests/Lwrp.Infrastructure.IntegrationTests.csproj" reference `
   "../../src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj" `
+  "../../src/infrastructure/Lwrp.LivewireClient/Lwrp.LivewireClient.csproj" `
   "../../src/infrastructure/Lwrp.Persistence/Lwrp.Persistence.csproj"
 
 Set-Location ../..
@@ -147,6 +153,7 @@ dotnet new xunit -n Lwrp.ComponentTests.UiToApi --framework $DotNetFramework
 
 dotnet add "Lwrp.ComponentTests.ApiToLwrp/Lwrp.ComponentTests.ApiToLwrp.csproj" reference `
   "../../src/api/Lwrp.Api/Lwrp.Api.csproj" `
+  "../../src/infrastructure/Lwrp.LivewireClient/Lwrp.LivewireClient.csproj"  `
   "../../src/infrastructure/Lwrp.MockDevice/Lwrp.MockDevice.csproj"
 
 dotnet add "Lwrp.ComponentTests.UiToApi/Lwrp.ComponentTests.UiToApi.csproj" reference `

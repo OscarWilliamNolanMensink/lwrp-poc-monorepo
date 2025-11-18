@@ -9,7 +9,6 @@ This project provides a proof-of-concept .NET implementation for integrating wit
 Because hardware nodes may not always be available during development, this repository also includes an optional LWRP emulator for local testing.
 
 
-
 # TODOS
 
 - What is persistence here?:
@@ -23,15 +22,18 @@ Before I link it with another project I need to know what it is supposed to do.
 # Thoughts
 ## Pure React UI
 
-If you want a fully client-side React application, you could structure it as two separate clients communicating with each other:
+If you want a fully client-side React application, you could structure it as followed:
 
 1. Client A — the human-facing UI
 
-2. Client B — the device-facing client that reports status back
+2. Server A - API awaiting calls. Maintaining TCP connection through loop calling.
+
+2. Server B — the device-facing client that reports status back
 
 In this setup, the API would regularly poll connected devices to retrieve their current state.
 
 ## Mock devices
+One Mock devide has been created to test the project against. b 
 
 ## Make Script Updates Safe
 The project-generation script currently overwrites files. I need to modify it so updates are optional and non-destructive, allowing new files to be added without resetting existing ones back to the initial setup.
