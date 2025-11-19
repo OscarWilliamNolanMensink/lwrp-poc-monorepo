@@ -24,7 +24,8 @@ Before I link it with another project I need to know what it is supposed to do.
 - Research more on interface, I want to build a widget with React if possible to add to the project
 - Fix Tree genorator to not include items in gitignore
 - Research set up completely on docker allowing also for read/write access to mock server
-
+- Go through new version of bootsrap-script
+- Hostname wont change when calling put api/IP
 # Thoughts
 ## Pure React UI
 
@@ -43,3 +44,7 @@ One Mock devide has been created to test the project against. b
 
 ## Make Script Updates Safe
 The project-generation script currently overwrites files. I need to modify it so updates are optional and non-destructive, allowing new files to be added without resetting existing ones back to the initial setup.
+
+## sealed class
+
+Learn about them

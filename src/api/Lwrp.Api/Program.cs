@@ -21,6 +21,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<LwrpConnectionOptions>(
     builder.Configuration.GetSection("Lwrp"));
 
+// Resilient connections with retries on fail.
+builder.Services.AddSingleton<ILwrpConnection, ResilientLwrpConnection>();
+
 // Register our login service
 builder.Services.AddScoped<ILwrpLoginService, TcpLwrpLoginService>();
 
