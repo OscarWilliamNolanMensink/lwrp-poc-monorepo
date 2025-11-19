@@ -20,11 +20,22 @@ public sealed class TcpLwrpLoginService : ILwrpLoginService
                 ? "LOGIN"
                 : $"LOGIN {password}";
 
-            var response = await _connection.SendCommandAsync(command, cancellationToken);
+            var response = await _connection.SendCommandAsync(command, cancellationToken)
+                           ?? string.Empty;
 
-            // If your mock returns "ERROR <msg>" uncomment this:
-            // if (response?.StartsWith("ERROR", StringComparison.OrdinalIgnoreCase) == true)
-            //     return Result.Failure(response);
+            // If your mock / device returns error lines, handle them here
+            if (response.StartsWith("ERROR", StringComparison.OrdinalIgnoreCase))
+            {
+                return Result.Failure(response);
+            }
+
+            // Only remember password when a password was actually used.
+            // (If you support read-only LOGIN without password, you can
+            // extend ILwrpConnection to remember that mode too.)
+            if (!string.IsNullOrWhiteSpace(password))
+            {
+                _connection.RememberPassword(password);
+            }
 
             return Result.Success();
         }
