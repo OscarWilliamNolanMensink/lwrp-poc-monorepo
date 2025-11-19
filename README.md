@@ -8,7 +8,12 @@ This project provides a proof-of-concept .NET implementation for integrating wit
 
 Because hardware nodes may not always be available during development, this repository also includes an optional LWRP emulator for local testing.
 
+## Setup
 
+Current working set up is a s followed:
+Run the Mock-lwrp in a  docker container.
+Run the entire project in dotnet on the same device.
+This way all items will assume they are on the same network giving you full read/write access to the mock server. For some reason, to be researched, this is not working when the entire project is hosted on Docker.
 # TODOS
 
 - What is persistence here?:
@@ -18,6 +23,7 @@ dotnet add Lwrp.Persistence/Lwrp.Persistence.csproj reference \
 Before I link it with another project I need to know what it is supposed to do.
 - Research more on interface, I want to build a widget with React if possible to add to the project
 - Fix Tree genorator to not include items in gitignore
+- Research set up completely on docker allowing also for read/write access to mock server
 
 # Thoughts
 ## Pure React UI
