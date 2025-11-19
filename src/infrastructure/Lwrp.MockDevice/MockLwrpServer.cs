@@ -31,7 +31,8 @@ public class MockLwrpServer
         using var reader = new StreamReader(stream);
         using var writer = new StreamWriter(stream) { AutoFlush = true };
 
-        bool isLocalhost = ((IPEndPoint)client.Client.RemoteEndPoint!).Address.ToString() == "127.0.0.1";
+        bool isLocalhost = client.Client.RemoteEndPoint is IPEndPoint ep && IPAddress.IsLoopback(ep.Address);
+
 
         while (client.Connected)
         {
