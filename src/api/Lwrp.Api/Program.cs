@@ -5,6 +5,24 @@ using Lwrp.Application.Device;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+const string AllowWebUi = "AllowWebUi";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowWebUi, policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:5212",   // example React dev server
+                "https://localhost:5212",
+                "http://localhost:5000",   // your Blazor UI origin
+                "https://localhost:5000")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 // LWRP connection options from config
 builder.Services.Configure<LwrpConnectionOptions>(
     builder.Configuration.GetSection("LwrpConnection"));
@@ -31,6 +49,10 @@ builder.Services.AddScoped<ILwrpLoginService, TcpLwrpLoginService>();
 builder.Services.AddScoped<ILwrpDeviceInfoService, TcpLwrpDeviceInfoService>();
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
+// Order matters: use CORS before MapControllers
+app.UseCors(AllowWebUi);
 
 // Configure the HTTP request pipeline.
 // if (app.Environment.IsDevelopment())
